@@ -1,12 +1,12 @@
 [
     {
-        "user_id": 10,
+        "userId": 10,
         "age": 25,
         "name": "Rob",
         "department_id": 3
     },
     {
-        "user_id": 11,
+        "userId": 11,
         "age": 30,
         "name": "George",
         "department_id": 2
