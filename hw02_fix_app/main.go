@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"main/printer"
-	"main/reader"
-	"main/types"
+	"github.com/freeloginname/home_work_basic/hw02_fix_app/printer"
+	"github.com/freeloginname/home_work_basic/hw02_fix_app/reader"
+	"github.com/freeloginname/home_work_basic/hw02_fix_app/types"
 )
 
 func main() {
