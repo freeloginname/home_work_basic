@@ -2,16 +2,16 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
 	size := 8
-	var board string
-	var cellCharacter string
+	var board strings.Builder
 	fmt.Println("Enter the board size... (8 is the default one)")
 	fmt.Scanf("%d \n", &size)
-	if size < 0 {
-		fmt.Println("Only natural numbers supported.")
+	if size <= 0 {
+		fmt.Println("Invalid board size.")
 		return
 	}
 	for line := 0; line < size; line++ {
@@ -23,15 +23,13 @@ func main() {
 		}
 		for cell := 0; cell < size; cell++ {
 			if cell%2 == oddCondition {
-				cellCharacter = "#"
+				board.WriteString("#")
 			} else {
-				cellCharacter = " "
+				board.WriteString(" ")
 			}
-
-			board += cellCharacter
 		}
-		board += "\n"
+		board.WriteString("\n")
 	}
 	fmt.Printf("Printing %d x %d chess board...\n", size, size)
-	fmt.Println(board)
+	fmt.Println(board.String())
 }
