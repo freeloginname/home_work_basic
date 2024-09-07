@@ -13,7 +13,7 @@ type Book struct {
 	rate   float32
 }
 
-func (book *Book) GetBookId() int {
+func (book *Book) GetBookID() int {
 	return book.id
 }
 
@@ -37,7 +37,7 @@ func (book *Book) GetBookRate() float32 {
 	return book.rate
 }
 
-func (book *Book) SetBookId(id int) {
+func (book *Book) SetBookID(id int) {
 	book.id = id
 }
 
@@ -62,8 +62,8 @@ func (book *Book) SetBookRate(rate float32) {
 }
 
 type BookComparer struct {
-	//firstBook Book
-	//secondBook Book
+	// firstBook Book
+	// secondBook Book
 	compareBy ComparisonType
 }
 
@@ -75,8 +75,8 @@ type ComparisonType struct {
 
 func NewBookComparer(compareBy ComparisonType) *BookComparer {
 	return &BookComparer{
-		//firstBook: firstBook,
-		//secondBook: secondBook,
+		// firstBook: firstBook,
+		// secondBook: secondBook,
 		compareBy: compareBy,
 	}
 }
@@ -85,42 +85,36 @@ func (comparer *BookComparer) CompareBooks(firstBook Book, secondBook Book) bool
 	if comparer.compareBy.Year {
 		if firstBook.year > secondBook.year {
 			return true
-		} else {
-			return false
 		}
 	}
 
 	if comparer.compareBy.Size {
 		if firstBook.size > secondBook.size {
 			return true
-		} else {
-			return false
 		}
 	}
 	if comparer.compareBy.Rate {
 		if firstBook.rate > secondBook.rate {
 			return true
-		} else {
-			return false
 		}
 	}
 	return false
 }
 
-//ID, Title, Author, Year, Size, Rate
+// ID, Title, Author, Year, Size, Rate
 
 func main() {
 	fmt.Println("run some tests")
 	var firstBook Book
 	var secondBook Book
 	var compareBy ComparisonType
-	firstBook.SetBookId(1)
+	firstBook.SetBookID(1)
 	firstBook.SetBookTitle("aaa")
 	firstBook.SetBookAuthor("aaaaa")
 	firstBook.SetBookYear(1990)
 	firstBook.SetBookSize(10)
 	firstBook.SetBookRate(2.0)
-	secondBook.SetBookId(2)
+	secondBook.SetBookID(2)
 	secondBook.SetBookTitle("bb")
 	secondBook.SetBookAuthor("bbb")
 	secondBook.SetBookYear(1991)
@@ -153,5 +147,4 @@ func main() {
 	RateComparer := NewBookComparer(compareBy)
 	compareByRate := RateComparer.CompareBooks(firstBook, secondBook)
 	fmt.Printf("Size %t", compareByRate)
-
 }
