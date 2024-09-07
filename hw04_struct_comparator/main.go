@@ -67,11 +67,13 @@ type BookComparer struct {
 	compareBy ComparisonType
 }
 
-type ComparisonType struct {
-	Year bool
-	Size bool
-	Rate bool
-}
+type ComparisonType int
+
+const (
+	Year ComparisonType = iota
+	Size ComparisonType = iota
+	Rate ComparisonType = iota
+)
 
 func NewBookComparer(compareBy ComparisonType) *BookComparer {
 	return &BookComparer{
@@ -82,18 +84,16 @@ func NewBookComparer(compareBy ComparisonType) *BookComparer {
 }
 
 func (comparer *BookComparer) CompareBooks(firstBook Book, secondBook Book) bool {
-	if comparer.compareBy.Year {
+	switch comparer.compareBy {
+	case Year:
 		if firstBook.year > secondBook.year {
 			return true
 		}
-	}
-
-	if comparer.compareBy.Size {
+	case Size:
 		if firstBook.size > secondBook.size {
 			return true
 		}
-	}
-	if comparer.compareBy.Rate {
+	case Rate:
 		if firstBook.rate > secondBook.rate {
 			return true
 		}
@@ -107,7 +107,6 @@ func main() {
 	fmt.Println("run some tests")
 	var firstBook Book
 	var secondBook Book
-	var compareBy ComparisonType
 	firstBook.SetBookID(1)
 	firstBook.SetBookTitle("aaa")
 	firstBook.SetBookAuthor("aaaaa")
@@ -121,30 +120,15 @@ func main() {
 	secondBook.SetBookSize(20)
 	secondBook.SetBookRate(5.0)
 
-	compareBy = ComparisonType{
-		Year: true,
-		Size: false,
-		Rate: false,
-	}
-	yearComparer := NewBookComparer(compareBy)
+	yearComparer := NewBookComparer(Year)
 	compareByYear := yearComparer.CompareBooks(firstBook, secondBook)
-	fmt.Printf("Year %t", compareByYear)
+	fmt.Printf("Year %t \n", compareByYear)
 
-	compareBy = ComparisonType{
-		Year: false,
-		Size: true,
-		Rate: false,
-	}
-	sizeComparer := NewBookComparer(compareBy)
+	sizeComparer := NewBookComparer(Size)
 	compareBySize := sizeComparer.CompareBooks(firstBook, secondBook)
-	fmt.Printf("Size %t", compareBySize)
+	fmt.Printf("Size %t \n", compareBySize)
 
-	compareBy = ComparisonType{
-		Year: false,
-		Size: true,
-		Rate: false,
-	}
-	RateComparer := NewBookComparer(compareBy)
+	RateComparer := NewBookComparer(Rate)
 	compareByRate := RateComparer.CompareBooks(firstBook, secondBook)
-	fmt.Printf("Size %t", compareByRate)
+	fmt.Printf("Size %t \n", compareByRate)
 }
