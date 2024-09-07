@@ -11,29 +11,29 @@ type Shape interface {
 }
 
 type Circle struct {
-	radius float64
+	Radius float64
 }
 
 func (circle Circle) Area() float64 {
-	return math.Pi * math.Pow(circle.radius, 2)
+	return math.Pi * math.Pow(circle.Radius, 2)
 }
 
 type Rectangle struct {
-	wide  float64
-	tight float64
+	Wide  float64
+	Tight float64
 }
 
 func (rectangle Rectangle) Area() float64 {
-	return rectangle.wide * rectangle.tight
+	return rectangle.Wide * rectangle.Tight
 }
 
 type Triangle struct {
-	base float64
-	high float64
+	Base float64
+	High float64
 }
 
 func (triangle Triangle) Area() float64 {
-	return 0.5 * triangle.base * triangle.high
+	return 0.5 * triangle.Base * triangle.High
 }
 
 func calculateArea(s any) (float64, error) {
@@ -54,34 +54,34 @@ type fakeFigure struct {
 
 func main() {
 	var err error
-	circle := Circle{radius: 5}
+	circle := Circle{Radius: 5}
 	circleArea, err := calculateArea(circle)
 	if err != nil {
 		fmt.Println("err")
 	}
-	fmt.Printf("Круг: радиус %f \n", circle.radius)
+	fmt.Printf("Круг: радиус %f \n", circle.Radius)
 	fmt.Printf("Площадь: %f \n\n", circleArea)
 
 	rectangle := Rectangle{
-		wide:  10,
-		tight: 5,
+		Wide:  10,
+		Tight: 5,
 	}
 	rectangleArea, err := calculateArea(rectangle)
 	if err != nil {
 		fmt.Println("err")
 	}
-	fmt.Printf("Прямоугольник: ширина %f , высота %f \n", rectangle.wide, rectangle.tight)
+	fmt.Printf("Прямоугольник: ширина %f , высота %f \n", rectangle.Wide, rectangle.Tight)
 	fmt.Printf("Площадь: %f \n\n", rectangleArea)
 
 	triangle := Triangle{
-		base: 8,
-		high: 6,
+		Base: 8,
+		High: 6,
 	}
 	triangleArea, err := calculateArea(triangle)
 	if err != nil {
 		fmt.Println("err")
 	}
-	fmt.Printf("Треугольник: основание %f , высота %f \n", triangle.base, triangle.high)
+	fmt.Printf("Треугольник: основание %f , высота %f \n", triangle.Base, triangle.High)
 	fmt.Printf("Площадь: %f \n\n", triangleArea)
 
 	fake := fakeFigure{dimension: 1}
