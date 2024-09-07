@@ -39,12 +39,12 @@ func (triangle Triangle) Area() float64 {
 func calculateArea(s any) (float64, error) {
 	var area float64
 	var err error
-	_, shapeImplementation := interface{}(s).(Shape)
+	_, shapeImplementation := s.(Shape)
 	if !shapeImplementation {
 		err = errors.New("ошибка: переданный объект не является фигурой")
 		return area, err
 	}
-	area = interface{}(s).(Shape).Area()
+	area = s.(Shape).Area()
 	return area, err
 }
 
@@ -88,7 +88,6 @@ func main() {
 	fakeArea, err := calculateArea(fake)
 	if err != nil {
 		fmt.Println(err)
-		return
 	} else {
 		fmt.Printf("Площадь фигуры без метода ее подсчета: %f \n\n", fakeArea)
 	}
