@@ -36,20 +36,21 @@ func (triangle Triangle) Area() float64 {
 	return 0.5 * triangle.base * triangle.high
 }
 
-func calculateArea(shape Shape) (float64, error) {
+func calculateArea(s any) (float64, error) {
 	var area float64
 	var err error
-	_, shapeImplementation := interface{}(shape).(Shape)
+	_, shapeImplementation := interface{}(s).(Shape)
 	if !shapeImplementation {
 		err = errors.New("ошибка: переданный объект не является фигурой")
+		return area, err
 	}
-	area = shape.Area()
+	area = interface{}(s).(Shape).Area()
 	return area, err
 }
 
-// type fakeFigure struct {
-// 	dimension float64
-// }
+type fakeFigure struct {
+	dimension float64
+}
 
 func main() {
 	var err error
@@ -83,10 +84,12 @@ func main() {
 	fmt.Printf("Треугольник: основание %f , высота %f \n", triangle.base, triangle.high)
 	fmt.Printf("Площадь: %f \n\n", triangleArea)
 
-	// fake := fakeFigure{dimension: 1}
-	// fakeArea, err := calculateArea(fake)
-	// if err != nil {
-	// 	fmt.Println("err")
-	// }
-	// fmt.Printf("Площадь фигуры без метода ее подсчета: %f \n\n", fakeArea)
+	fake := fakeFigure{dimension: 1}
+	fakeArea, err := calculateArea(fake)
+	if err != nil {
+		fmt.Println(err)
+		return
+	} else {
+		fmt.Printf("Площадь фигуры без метода ее подсчета: %f \n\n", fakeArea)
+	}
 }
