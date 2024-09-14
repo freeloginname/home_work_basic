@@ -86,17 +86,11 @@ func NewBookComparer(compareBy ComparisonType) *BookComparer {
 func (comparer *BookComparer) CompareBooks(firstBook Book, secondBook Book) bool {
 	switch comparer.compareBy {
 	case Year:
-		if firstBook.year > secondBook.year {
-			return true
-		}
+		return firstBook.year > secondBook.year
 	case Size:
-		if firstBook.size > secondBook.size {
-			return true
-		}
+		return firstBook.size > secondBook.size
 	case Rate:
-		if firstBook.rate > secondBook.rate {
-			return true
-		}
+		return firstBook.rate > secondBook.rate
 	}
 	return false
 }
