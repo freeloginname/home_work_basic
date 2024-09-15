@@ -177,14 +177,14 @@ func TestHW05(t *testing.T) {
 		tight       float64
 		base        float64
 		high        float64
-		shape_type  hw05.ShapeType
+		shapeType   hw05.ShapeType
 		expectation float64
 		err         error
 	}{
 		{
 			desc:        "Circle",
 			radius:      5,
-			shape_type:  hw05.CircleType,
+			shapeType:   hw05.CircleType,
 			expectation: 78.53981633974483,
 			err:         nil,
 		},
@@ -192,7 +192,7 @@ func TestHW05(t *testing.T) {
 			desc:        "Rectangle",
 			width:       10,
 			tight:       5,
-			shape_type:  hw05.RectangleType,
+			shapeType:   hw05.RectangleType,
 			expectation: 50,
 			err:         nil,
 		},
@@ -200,7 +200,7 @@ func TestHW05(t *testing.T) {
 			desc:        "Triangle",
 			base:        8,
 			high:        6,
-			shape_type:  hw05.TriangleType,
+			shapeType:   hw05.TriangleType,
 			expectation: 24,
 			err:         nil,
 		},
@@ -208,7 +208,7 @@ func TestHW05(t *testing.T) {
 			desc:        "Zero",
 			base:        0,
 			high:        6,
-			shape_type:  hw05.TriangleType,
+			shapeType:   hw05.TriangleType,
 			expectation: 0,
 			err:         nil,
 		},
@@ -216,7 +216,7 @@ func TestHW05(t *testing.T) {
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			var shape hw05.Shape
-			switch tC.shape_type {
+			switch tC.shapeType {
 			case hw05.CircleType:
 				shape = hw05.Circle{Radius: tC.radius}
 			case hw05.RectangleType:
