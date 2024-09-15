@@ -1,7 +1,7 @@
 package hw03
 
 import (
-	// "fmt"
+	// "fmt" .
 	"errors"
 	"strings"
 )
