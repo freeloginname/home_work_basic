@@ -1,4 +1,4 @@
-//go:build hw06_test
+//go:build hw06_test.
 
 package main
 
@@ -11,7 +11,7 @@ import (
 	"github.com/freeloginname/home_work_basic/hw06_testing/hw05"
 
 	"github.com/stretchr/testify/require"
-	// "github.com/stretchr/testify/require"
+	// "github.com/stretchr/testify/require".
 )
 
 func TestHW03(t *testing.T) {
@@ -44,7 +44,7 @@ func TestHW03(t *testing.T) {
 		t.Run(tC.desc, func(t *testing.T) {
 			got, err := hw03.HW03(tC.size)
 			/**
-			* можно ли сделать универсальную проверку средствами require
+			* можно ли сделать универсальную проверку средствами require.
 			* для ситуаций когда ошидаешь ошибку и когда ее не должно быть?.
 			**/
 			require.NoError(t, err)
@@ -78,8 +78,8 @@ func TestHW04(t *testing.T) {
 	testCases := []struct {
 		desc      string
 		compareBy hw04.ComparisonType
-		// firstBook hw04.Book
-		// secondBook hw04.Book
+		// firstBook hw04.Book.
+		// secondBook hw04.Book.
 		firstBookId      int
 		firstBookTitle   string
 		firstBookAuthor  string
@@ -96,7 +96,7 @@ func TestHW04(t *testing.T) {
 	}{
 		{
 			/**
-			* как можно определить значения для Book на этом этапе,
+			* как можно определить значения для Book на этом этапе,.
 			* если они задаются через вызов методов?.
 			 **/
 			desc:             "Year comparison",
