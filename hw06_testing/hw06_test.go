@@ -43,7 +43,10 @@ func TestHW03(t *testing.T) {
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			got, err := hw03.HW03(tC.size)
-			// можно ли сделать универсальную проверку средствами require для ситуаций когда ошидаешь ошибку и когда ее не должно быть?
+			/**
+			* можно ли сделать универсальную проверку средствами require
+			* для ситуаций когда ошидаешь ошибку и когда ее не должно быть?
+			**/
 			require.NoError(t, err)
 			require.Equal(t, tC.board, got)
 		})
@@ -92,7 +95,10 @@ func TestHW04(t *testing.T) {
 		expectation      bool
 	}{
 		{
-			// ? как можно определить значения для Book на этом этапе, если они задаются через вызов методов?
+			/**
+			* как можно определить значения для Book на этом этапе,
+			* если они задаются через вызов методов?
+			 **/
 			desc:             "Year comparison",
 			compareBy:        hw04.Year,
 			firstBookId:      1,
