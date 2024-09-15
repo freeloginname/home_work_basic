@@ -1,5 +1,3 @@
-//go:build hw06_test.
-
 package main
 
 import (
@@ -11,7 +9,7 @@ import (
 	"github.com/freeloginname/home_work_basic/hw06_testing/hw05"
 
 	"github.com/stretchr/testify/require"
-	// "github.com/stretchr/testify/require".
+	// "github.com/stretchr/testify/require"
 )
 
 func TestHW03(t *testing.T) {
