@@ -7,9 +7,7 @@ import (
 	"github.com/freeloginname/home_work_basic/hw06_testing/hw03"
 	"github.com/freeloginname/home_work_basic/hw06_testing/hw04"
 	"github.com/freeloginname/home_work_basic/hw06_testing/hw05"
-
 	"github.com/stretchr/testify/require"
-	// "github.com/stretchr/testify/require"
 )
 
 func TestHW03(t *testing.T) {
@@ -78,13 +76,13 @@ func TestHW04(t *testing.T) {
 		compareBy hw04.ComparisonType
 		// firstBook hw04.Book.
 		// secondBook hw04.Book.
-		firstBookId      int
+		firstBookID      int
 		firstBookTitle   string
 		firstBookAuthor  string
 		firstBookYear    int
 		firstBookSize    int
 		firstBookRate    float32
-		SecondBookId     int
+		SecondBookID     int
 		SecondBookTitle  string
 		SecondBookAuthor string
 		SecondBookYear   int
@@ -99,13 +97,13 @@ func TestHW04(t *testing.T) {
 			 **/
 			desc:             "Year comparison",
 			compareBy:        hw04.Year,
-			firstBookId:      1,
+			firstBookID:      1,
 			firstBookTitle:   "aaa",
 			firstBookAuthor:  "aaaaa",
 			firstBookYear:    1990,
 			firstBookSize:    10,
 			firstBookRate:    2.0,
-			SecondBookId:     2,
+			SecondBookID:     2,
 			SecondBookTitle:  "bb",
 			SecondBookAuthor: "bbb",
 			SecondBookYear:   1991,
@@ -116,13 +114,13 @@ func TestHW04(t *testing.T) {
 		{
 			desc:             "Size comparison",
 			compareBy:        hw04.Size,
-			firstBookId:      1,
+			firstBookID:      1,
 			firstBookTitle:   "aaa",
 			firstBookAuthor:  "aaaaa",
 			firstBookYear:    1990,
 			firstBookSize:    10,
 			firstBookRate:    2.0,
-			SecondBookId:     2,
+			SecondBookID:     2,
 			SecondBookTitle:  "bb",
 			SecondBookAuthor: "bbb",
 			SecondBookYear:   1991,
@@ -133,13 +131,13 @@ func TestHW04(t *testing.T) {
 		{
 			desc:             "Rate comparison",
 			compareBy:        hw04.Rate,
-			firstBookId:      1,
+			firstBookID:      1,
 			firstBookTitle:   "aaa",
 			firstBookAuthor:  "aaaaa",
 			firstBookYear:    1990,
 			firstBookSize:    10,
 			firstBookRate:    2.0,
-			SecondBookId:     2,
+			SecondBookID:     2,
 			SecondBookTitle:  "bb",
 			SecondBookAuthor: "bbb",
 			SecondBookYear:   1991,
@@ -153,13 +151,13 @@ func TestHW04(t *testing.T) {
 			bookComparer := hw04.NewBookComparer(tC.compareBy)
 			var firstBook hw04.Book
 			var secondBook hw04.Book
-			firstBook.SetBookID(tC.firstBookId)
+			firstBook.SetBookID(tC.firstBookID)
 			firstBook.SetBookTitle(tC.firstBookTitle)
 			firstBook.SetBookAuthor(tC.firstBookAuthor)
 			firstBook.SetBookYear(tC.firstBookYear)
 			firstBook.SetBookSize(tC.firstBookSize)
 			firstBook.SetBookRate(tC.firstBookRate)
-			secondBook.SetBookID(tC.SecondBookId)
+			secondBook.SetBookID(tC.SecondBookID)
 			secondBook.SetBookTitle(tC.SecondBookTitle)
 			secondBook.SetBookAuthor(tC.SecondBookAuthor)
 			secondBook.SetBookYear(tC.SecondBookYear)
