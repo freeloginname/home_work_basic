@@ -1,5 +1,12 @@
 package hw04
 
+import (
+	"testing"
+
+	// "github.com/freeloginname/home_work_basic/hw06_testing/hw04"
+	"github.com/stretchr/testify/require"
+)
+
 type Book struct {
 	id     int
 	title  string
@@ -122,3 +129,91 @@ func (comparer *BookComparer) CompareBooks(firstBook Book, secondBook Book) bool
 // 	compareByRate := RateComparer.CompareBooks(firstBook, secondBook)
 // 	fmt.Printf("Size %t \n", compareByRate)
 // }
+
+// Если вынести тесты в отдельный файл, то в случае непубличных параметров в структурах не получится задать значения как в коде ниже/
+// Однако, если тесты писать в том же файле, то go test не подхватывает эти тесты.
+
+func TestHW04(t *testing.T) {
+	testCases := []struct {
+		desc        string
+		compareBy   ComparisonType
+		firstBook   Book
+		secondBook  Book
+		expectation bool
+	}{
+		{
+			/**
+			* как можно определить значения для Book на этом этапе,.
+			* если они задаются через вызов методов?.
+			 **/
+			desc:      "Year comparison",
+			compareBy: Year,
+			firstBook: Book{
+				id:     1,
+				title:  "aaa",
+				author: "aaaaa",
+				year:   1990,
+				size:   10,
+				rate:   2.0,
+			},
+			secondBook: Book{
+				id:     2,
+				title:  "bb",
+				author: "bbb",
+				year:   1991,
+				size:   20,
+				rate:   5.0,
+			},
+			expectation: false,
+		},
+		{
+			desc:      "Size comparison",
+			compareBy: Size,
+			firstBook: Book{
+				id:     1,
+				title:  "aaa",
+				author: "aaaaa",
+				year:   1990,
+				size:   10,
+				rate:   2.0,
+			},
+			secondBook: Book{
+				id:     2,
+				title:  "bb",
+				author: "bbb",
+				year:   1991,
+				size:   20,
+				rate:   5.0,
+			},
+			expectation: false,
+		},
+		{
+			desc:      "Rate comparison",
+			compareBy: Rate,
+			firstBook: Book{
+				id:     1,
+				title:  "aaa",
+				author: "aaaaa",
+				year:   1990,
+				size:   10,
+				rate:   2.0,
+			},
+			secondBook: Book{
+				id:     2,
+				title:  "bb",
+				author: "bbb",
+				year:   1991,
+				size:   20,
+				rate:   5.0,
+			},
+			expectation: false,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			bookComparer := NewBookComparer(tC.compareBy)
+			got := bookComparer.CompareBooks(tC.firstBook, tC.secondBook)
+			require.Equal(t, tC.expectation, got)
+		})
+	}
+}
