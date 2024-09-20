@@ -3,7 +3,6 @@ package hw04
 import (
 	"testing"
 
-	// "github.com/freeloginname/home_work_basic/hw06_testing/hw04"
 	"github.com/stretchr/testify/require"
 )
 
