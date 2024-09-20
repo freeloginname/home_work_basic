@@ -10,6 +10,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const (
+	bct = `User ID: 10; Age: 25; Name: Rob; Department ID: 3; User ID: 11; Age: 30; Name: George; Department ID: 2; `
+)
+
 func TestHW02(t *testing.T) {
 	testCases := []struct {
 		desc               string
@@ -36,7 +40,7 @@ func TestHW02(t *testing.T) {
 					DepartmentID: 2,
 				},
 			},
-			printerExpectation: "User ID: 10; Age: 25; Name: Rob; Department ID: 3; User ID: 11; Age: 30; Name: George; Department ID: 2; ",
+			printerExpectation: bct,
 		},
 		{
 			desc: "json missing field case",
