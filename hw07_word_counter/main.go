@@ -10,11 +10,11 @@ const (
 )
 
 func countWords(inputString string) map[string]int {
-	var wordsAppearance = make(map[string]int)
+	wordsAppearance := make(map[string]int)
 	for _, word := range strings.Split(inputString, " ") {
 		if strings.ContainsAny(word, punctuation) {
 			var fixWord string
-			var wordRunes = []rune(word)
+			wordRunes := []rune(word)
 			for index := len(wordRunes) - 1; index >= 0; index-- {
 				if !strings.ContainsAny(string(wordRunes[index]), punctuation) {
 					fixWord = word[0 : index+1]
