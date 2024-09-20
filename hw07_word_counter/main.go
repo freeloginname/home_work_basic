@@ -1,4 +1,4 @@
-package countWords
+package countwords
 
 import (
 	"fmt"
@@ -10,10 +10,7 @@ const (
 )
 
 func countWords(inputString string) map[string]int {
-
 	var wordsAppearance = make(map[string]int)
-	//inputRunes := []rune(inputString)
-	//rawWords := strings.Split(inputString, " ")
 	for _, word := range strings.Split(inputString, " ") {
 		if strings.ContainsAny(word, punctuation) {
 			var fixWord string
@@ -28,11 +25,9 @@ func countWords(inputString string) map[string]int {
 				fmt.Println(fixWord)
 				wordsAppearance[fixWord]++
 			}
-		} else {
-			if word != "" && len(word) > 0 {
-				fmt.Println(word)
-				wordsAppearance[word]++
-			}
+		} else if word != "" && len(word) > 0 {
+			fmt.Println(word)
+			wordsAppearance[word]++
 		}
 	}
 	return wordsAppearance

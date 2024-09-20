@@ -1,4 +1,4 @@
-package countWords_test
+package countwords_test
 
 import (
 	"testing"
