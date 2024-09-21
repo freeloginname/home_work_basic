@@ -43,6 +43,11 @@ func Test(t *testing.T) {
 			inputString: "hello, world! hello@%, world!  ,.!?;",
 			expectation: map[string]int{"hello": 1, "world": 2, "hello@%": 1},
 		},
+		{
+			desc:        "Русские слова",
+			inputString: "за.ра",
+			expectation: map[string]int{"за.ра": 1},
+		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {

@@ -17,7 +17,7 @@ func countWords(inputString string) map[string]int {
 			wordRunes := []rune(word)
 			for index := len(wordRunes) - 1; index >= 0; index-- {
 				if !strings.ContainsAny(string(wordRunes[index]), punctuation) {
-					fixWord = word[0 : index+1]
+					fixWord = string(wordRunes[0 : index+1])
 					break
 				}
 			}
