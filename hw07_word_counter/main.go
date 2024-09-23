@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	punctuation = ",.!?;"
+	punctuation = `",.!?;':`
 )
 
 func countWords(inputString string) map[string]int {
@@ -22,6 +22,7 @@ func countWords(inputString string) map[string]int {
 				}
 			}
 			if fixWord != "" && len(fixWord) > 0 {
+				fixWord = strings.TrimPrefix(fixWord, "\"")
 				fmt.Println(fixWord)
 				wordsAppearance[fixWord]++
 			}

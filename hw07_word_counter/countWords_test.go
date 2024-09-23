@@ -48,6 +48,11 @@ func Test(t *testing.T) {
 			inputString: "за.ра",
 			expectation: map[string]int{"за.ра": 1},
 		},
+		{
+			desc:        "дополнительные знаки препинания",
+			inputString: `он сказал: "привет ta4ka мазай"`,
+			expectation: map[string]int{"он": 1, "сказал": 1, "привет": 1, "ta4ka": 1, "мазай": 1},
+		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
