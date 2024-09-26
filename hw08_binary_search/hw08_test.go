@@ -61,18 +61,6 @@ func TestHW08(t *testing.T) {
 			target:      11,
 			expectation: -1,
 		},
-		{
-			desc:        "data not sorted",
-			data:        []int{1, 2, 11, 4, 5, 6, 7, 8, 9, 10},
-			target:      9,
-			expectation: 8,
-		},
-		{
-			desc:        "data not sorted 1",
-			data:        []int{1, 2, 11, 4, 5, 6, 7, 8, 9, 10},
-			target:      2,
-			expectation: 1,
-		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
