@@ -10,7 +10,6 @@ import (
 
 func main() {
 	// var wg sync.WaitGroup
-
 	mx := sync.Mutex{}
 	inputCh := make(chan int64)
 	outCh := make(chan int64)
