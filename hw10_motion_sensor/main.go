@@ -1,30 +1,32 @@
 package main
 
 import (
+	"crypto/rand"
 	"fmt"
-	"math/rand"
+	"math/big"
 	"sync"
 	"time"
 )
 
 func main() {
 	// var wg sync.WaitGroup
-	rand.NewSource(time.Now().UnixNano())
+
 	mx := sync.Mutex{}
-	inputCh := make(chan int)
-	outCh := make(chan int)
+	inputCh := make(chan int64)
+	outCh := make(chan int64)
 	// wg.Add(1)
 
 	go func() {
 		for {
-			inputData := rand.Intn(100)
+			myRandom, _ := rand.Int(rand.Reader, big.NewInt(64800))
+			inputData := myRandom.Int64()
 			inputCh <- inputData
 		}
 	}()
 
 	go func() {
-		sum := 0
-		counter := 0
+		var sum int64
+		var counter int64
 		for {
 			// var data int
 			data := <-inputCh
