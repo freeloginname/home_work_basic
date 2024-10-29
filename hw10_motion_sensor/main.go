@@ -1,31 +1,23 @@
-package hw10motionsensor
+package main
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
 	"time"
 )
 
-func Reader() {
-	var inputData int
-	fmt.Scanf("%d \n", &inputData)
-}
-
 func main() {
-	//var wg sync.WaitGroup
-	var inputData int
+	// var wg sync.WaitGroup
+	rand.NewSource(time.Now().UnixNano())
 	mx := sync.Mutex{}
 	inputCh := make(chan int)
 	outCh := make(chan int)
-	//wg.Add(1)
-	currentTime := time.Now()
-	fmt.Printf("Current time: %s \n", currentTime)
-	timeout := currentTime.Add(10 * time.Second)
+	// wg.Add(1)
 
 	go func() {
-		for currentTime.Before(timeout) {
-			fmt.Scanf("%d \n", &inputData)
-			fmt.Printf("Sending %d to input channel \n", inputData)
+		for {
+			inputData := rand.Intn(100)
 			inputCh <- inputData
 		}
 	}()
@@ -34,26 +26,28 @@ func main() {
 		sum := 0
 		counter := 0
 		for {
-			//var data int
+			// var data int
 			data := <-inputCh
 			fmt.Printf("Getting %d from input channel \n", data)
 			mx.Lock()
-			sum = sum + data
+			sum += data
 			counter++
-			fmt.Printf("Sending %d  to output channel \n", sum/counter)
-			outCh <- sum / counter
 			mx.Unlock()
-
+			if counter == 10 {
+				fmt.Printf("Sending %d  to output channel \n", sum/counter)
+				outCh <- sum / counter
+				counter = 0
+				sum = 0
+			}
 		}
 	}()
 
 	go func() {
 		for {
-			fmt.Printf("Printing middle")
-			fmt.Println(<-outCh)
+			fmt.Printf("Arithmetic mean: %d \n", <-outCh)
 		}
 	}()
 	time.Sleep(time.Minute)
-	//wg.Wait()
-	defer fmt.Printf("Result: %d", <-outCh)
+	// time.Sleep(10 * time.Second)
+	// wg.Wait()
 }
