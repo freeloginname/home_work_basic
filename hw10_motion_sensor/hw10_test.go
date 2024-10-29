@@ -1,4 +1,4 @@
-package hw10motionsensor
+package main
 
 import (
 	"testing"
@@ -9,7 +9,7 @@ func Test(t *testing.T) {
 		desc string
 	}{
 		{
-			desc: "",
+			desc: "Test run",
 		},
 	}
 	for _, tC := range testCases {
