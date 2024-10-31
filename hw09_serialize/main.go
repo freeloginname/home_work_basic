@@ -1,8 +1,9 @@
-package main
+package book
 
 import (
 	"encoding/json"
 	"fmt"
+	"freeloginname/home_work_basic/hw09_serialize/book"
 )
 
 type Book struct {
@@ -26,18 +27,6 @@ func (book *Book) Unmarshaller(data []byte) error {
 	return nil
 }
 
-// func SliceMarshaller(books []Book) ([]byte, error) {
-// 	var result []byte
-// 	for book := range books {
-// 		currentBook, err := books[book].Marshaller()
-// 		if err != nil {
-// 			return nil, err
-// 		}
-// 		result = append(result, currentBook...)
-// 	}
-// 	return result, nil
-// }
-
 func SliceMarshaller(books []Book) ([]byte, error) {
 	return json.Marshal(books)
 }
@@ -51,11 +40,19 @@ func SliceUnmarshaller(data []byte) ([]Book, error) {
 	return result, nil
 }
 
+type BookProto struct {
+	book.Message
+}
+
+func (book *BookProto) Marshaller() ([]byte, error) {
+	return json.Marshal(book)
+}
+
 func main() {
 	// Place your code here.
-	book := Book{1, "title", "author", 1, 1, 1.0}
+	book1 := Book{1, "title", "author", 1, 1, 1.0}
 
-	bytes, _ := book.Marshaller()
+	bytes, _ := book1.Marshaller()
 	fmt.Println(string(bytes))
 	j := []byte(`{"Id":2,"Title":"title2","Author":"author2","Year":2,"Size":2,"Rate":2.0}`)
 	var book2 Book
@@ -68,4 +65,12 @@ func main() {
 	result2, _ := SliceUnmarshaller([]byte(`[{"Id":1,"Title":"title","Author":"author","Year":1,"Size":1,"Rate":1.0},
 	{"Id":2,"Title":"title2","Author":"author2","Year":2,"Size":2,"Rate":2.0}]`))
 	fmt.Println(result2)
+
+	bookProto := BookProto{Message: book.Message{Id: 1, Title: "title", Author: "author", Year: 1, Size: 1, Rate: 1.0}}
+	bytes, _ = bookProto.Marshaller()
+	fmt.Println(string(bytes))
+
+	pb := &book.Message{Id: 1, Title: "title", Author: "author", Year: 1, Size: 1, Rate: 1.0}
+	bytes, _ = json.Marshal(pb)
+	fmt.Println(string(bytes))
 }

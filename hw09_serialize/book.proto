@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package main;
+package book;
 
-option go_package = "./main";
+option go_package = "./book";
 
 message Message {
 	int32 Id = 1;

@@ -1,7 +1,10 @@
-package main
+package book
 
 import (
+	"fmt"
 	"testing"
+
+	"freeloginname/home_work_basic/hw09_serialize/book"
 
 	"github.com/stretchr/testify/require"
 )
@@ -100,6 +103,32 @@ func TestHW09Slices(t *testing.T) {
 			result2, err := SliceUnmarshaller(results)
 			require.NoError(t, err)
 			require.Equal(t, tC.expectation, result2)
+		})
+	}
+}
+
+func TestHW09Proto(t *testing.T) {
+	testCases := []struct {
+		desc        string
+		book        BookProto
+		expectation string
+	}{
+		{
+			desc: "Marshal Proto",
+			book: BookProto{
+				Message: book.Message{
+					Id: 1, Title: "title", Author: "author", Year: 1, Size: 1, Rate: 1.0,
+				},
+			},
+			expectation: `{"Id":1,"Title":"title","Author":"author","Year":1,"Size":1,"Rate":1}`,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			results, err := tC.book.Marshaller()
+			require.NoError(t, err)
+			fmt.Println(string(results))
+			require.Equal(t, tC.expectation, string(results))
 		})
 	}
 }
