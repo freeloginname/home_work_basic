@@ -13,14 +13,25 @@ func main() {
 	mx := sync.Mutex{}
 	inputCh := make(chan int64)
 	outCh := make(chan int64)
+	quit := make(chan bool)
 	// wg.Add(1)
 
 	go func() {
 		for {
-			myRandom, _ := rand.Int(rand.Reader, big.NewInt(64800))
-			inputData := myRandom.Int64()
-			inputCh <- inputData
+			select {
+			case <-quit:
+				return
+			default:
+				myRandom, _ := rand.Int(rand.Reader, big.NewInt(64800))
+				inputData := myRandom.Int64()
+				inputCh <- inputData
+			}
 		}
+	}()
+	go func() {
+		time.Sleep(time.Minute)
+		// time.Sleep(10 * time.Second)
+		quit <- true
 	}()
 
 	go func() {
