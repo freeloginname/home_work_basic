@@ -55,14 +55,15 @@ func TestHW09Slices(t *testing.T) {
 	}{
 		{
 			desc: "Slice Marshal and unmarshal",
-			books: []Book{{
-				ID:     1,
-				Title:  "title",
-				Author: "author",
-				Year:   1,
-				Size:   1,
-				Rate:   1.0,
-			},
+			books: []Book{
+				{
+					ID:     1,
+					Title:  "title",
+					Author: "author",
+					Year:   1,
+					Size:   1,
+					Rate:   1.0,
+				},
 				{
 					ID:     2,
 					Title:  "title2",
@@ -70,15 +71,17 @@ func TestHW09Slices(t *testing.T) {
 					Year:   2,
 					Size:   2,
 					Rate:   2.0,
-				}},
-			expectation: []Book{{
-				ID:     1,
-				Title:  "title",
-				Author: "author",
-				Year:   1,
-				Size:   1,
-				Rate:   1.0,
+				},
 			},
+			expectation: []Book{
+				{
+					ID:     1,
+					Title:  "title",
+					Author: "author",
+					Year:   1,
+					Size:   1,
+					Rate:   1.0,
+				},
 				{
 					ID:     2,
 					Title:  "title2",
@@ -86,7 +89,8 @@ func TestHW09Slices(t *testing.T) {
 					Year:   2,
 					Size:   2,
 					Rate:   2.0,
-				}},
+				},
+			},
 		},
 	}
 	for _, tC := range testCases {
