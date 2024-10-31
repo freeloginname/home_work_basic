@@ -2,7 +2,6 @@ package book
 
 import (
 	"encoding/json"
-	"fmt"
 	"freeloginname/home_work_basic/hw09_serialize/book"
 )
 
@@ -48,29 +47,29 @@ func (book *BookProto) Marshaller() ([]byte, error) {
 	return json.Marshal(book)
 }
 
-func main() {
-	// Place your code here.
-	book1 := Book{1, "title", "author", 1, 1, 1.0}
+// func main() {
+// 	// Place your code here.
+// 	book1 := Book{1, "title", "author", 1, 1, 1.0}
 
-	bytes, _ := book1.Marshaller()
-	fmt.Println(string(bytes))
-	j := []byte(`{"Id":2,"Title":"title2","Author":"author2","Year":2,"Size":2,"Rate":2.0}`)
-	var book2 Book
-	_ = book2.Unmarshaller(j)
-	fmt.Println(book2)
+// 	bytes, _ := book1.Marshaller()
+// 	fmt.Println(string(bytes))
+// 	j := []byte(`{"Id":2,"Title":"title2","Author":"author2","Year":2,"Size":2,"Rate":2.0}`)
+// 	var book2 Book
+// 	_ = book2.Unmarshaller(j)
+// 	fmt.Println(book2)
 
-	result, _ := SliceMarshaller([]Book{{1, "title", "author", 1, 1, 1.0}, {2, "title2", "author2", 2, 2, 2.0}})
-	fmt.Println(string(result))
+// 	result, _ := SliceMarshaller([]Book{{1, "title", "author", 1, 1, 1.0}, {2, "title2", "author2", 2, 2, 2.0}})
+// 	fmt.Println(string(result))
 
-	result2, _ := SliceUnmarshaller([]byte(`[{"Id":1,"Title":"title","Author":"author","Year":1,"Size":1,"Rate":1.0},
-	{"Id":2,"Title":"title2","Author":"author2","Year":2,"Size":2,"Rate":2.0}]`))
-	fmt.Println(result2)
+// 	result2, _ := SliceUnmarshaller([]byte(`[{"Id":1,"Title":"title","Author":"author","Year":1,"Size":1,"Rate":1.0},
+// 	{"Id":2,"Title":"title2","Author":"author2","Year":2,"Size":2,"Rate":2.0}]`))
+// 	fmt.Println(result2)
 
-	bookProto := BookProto{Message: book.Message{Id: 1, Title: "title", Author: "author", Year: 1, Size: 1, Rate: 1.0}}
-	bytes, _ = bookProto.Marshaller()
-	fmt.Println(string(bytes))
+// 	bookProto := BookProto{Message: book.Message{Id: 1, Title: "title", Author: "author", Year: 1, Size: 1, Rate: 1.0}}
+// 	bytes, _ = bookProto.Marshaller()
+// 	fmt.Println(string(bytes))
 
-	pb := &book.Message{Id: 1, Title: "title", Author: "author", Year: 1, Size: 1, Rate: 1.0}
-	bytes, _ = json.Marshal(pb)
-	fmt.Println(string(bytes))
-}
+// 	pb := &book.Message{Id: 1, Title: "title", Author: "author", Year: 1, Size: 1, Rate: 1.0}
+// 	bytes, _ = json.Marshal(pb)
+// 	fmt.Println(string(bytes))
+// }
