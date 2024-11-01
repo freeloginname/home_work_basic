@@ -2,6 +2,7 @@ package book
 
 import (
 	"encoding/json"
+
 	"freeloginname/home_work_basic/hw09_serialize/book"
 )
 
@@ -40,7 +41,7 @@ func SliceUnmarshaller(data []byte) ([]Book, error) {
 }
 
 type BookProto struct {
-	book.Message
+	*book.Message
 }
 
 func (book *BookProto) Marshaller() ([]byte, error) {

@@ -2,8 +2,9 @@ package book
 
 import (
 	"fmt"
-	"freeloginname/home_work_basic/hw09_serialize/book"
 	"testing"
+
+	"freeloginname/home_work_basic/hw09_serialize/book"
 
 	"github.com/stretchr/testify/require"
 )
@@ -115,7 +116,7 @@ func TestHW09Proto(t *testing.T) {
 		{
 			desc: "Marshal Proto",
 			book: BookProto{
-				book.Message{
+				&book.Message{
 					Id: 1, Title: "title", Author: "author", Year: 1, Size: 1, Rate: 1.0,
 				},
 			},
