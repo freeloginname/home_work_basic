@@ -3,17 +3,20 @@ package main
 import (
 	"fmt"
 	"sync"
+	"sync/atomic"
 )
 
-func CounterStarter(number int) int {
+func CounterStarter(number int) int64 {
 	var wg sync.WaitGroup
 	mx := sync.Mutex{}
 	wg.Add(number)
-	var counter int
+	// var counter int
+	var counter int64
 	for currentGoroutine := 0; currentGoroutine < number; currentGoroutine++ {
 		go func(currentGoroutine int) {
 			mx.Lock()
-			counter++
+			// counter++
+			atomic.AddInt64(&counter, 1)
 			mx.Unlock()
 			fmt.Printf("%d goroutine finished with counter %d \n", currentGoroutine, counter)
 			wg.Done()
@@ -21,7 +24,6 @@ func CounterStarter(number int) int {
 	}
 	wg.Wait()
 	return counter
-
 }
 
 func main() {
