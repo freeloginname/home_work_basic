@@ -40,11 +40,11 @@ func SliceUnmarshaller(data []byte) ([]Book, error) {
 	return result, nil
 }
 
-type BookProto struct {
+type Proto struct {
 	*book.Message
 }
 
-func (book *BookProto) Marshaller() ([]byte, error) {
+func (book *Proto) Marshaller() ([]byte, error) {
 	return json.Marshal(book)
 }
 

@@ -109,12 +109,12 @@ func TestHW09Slices(t *testing.T) {
 func TestHW09Proto(t *testing.T) {
 	testCases := []struct {
 		desc        string
-		book        BookProto
+		book        Proto
 		expectation string
 	}{
 		{
 			desc: "Marshal Proto",
-			book: BookProto{
+			book: Proto{
 				&book.Message{
 					Id: 1, Title: "title", Author: "author", Year: 1, Size: 1, Rate: 1.0,
 				},
