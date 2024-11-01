@@ -1,4 +1,4 @@
-module freeloginname/home_work_basic/hw09_serialize
+module github.com/freeloginname/home_work_basic/hw09_serialize
 
 go 1.20
 

@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"freeloginname/home_work_basic/hw09_serialize/book"
-
+	"github.com/freeloginname/home_work_basic/hw09_serialize/book"
 	"github.com/stretchr/testify/require"
 )
 

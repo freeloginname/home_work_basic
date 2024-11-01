@@ -3,7 +3,7 @@ package book
 import (
 	"encoding/json"
 
-	"freeloginname/home_work_basic/hw09_serialize/book"
+	"github.com/freeloginname/home_work_basic/hw09_serialize/book"
 )
 
 type Book struct {
