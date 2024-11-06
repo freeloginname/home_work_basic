@@ -1,25 +1,28 @@
 package main
 
 import (
+	"context"
 	"crypto/rand"
 	"fmt"
 	"math/big"
-	"sync"
 	"time"
 )
 
 func main() {
-	// var wg sync.WaitGroup
-	mx := sync.Mutex{}
 	inputCh := make(chan int64)
 	outCh := make(chan int64)
-	quit := make(chan bool)
-	// wg.Add(1)
+	quitCh := make(chan struct{})
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer func() {
+		fmt.Println("Exiting program")
+		cancel()
+	}()
 
 	go func() {
 		for {
 			select {
-			case <-quit:
+			case <-ctx.Done():
+				close(inputCh)
 				return
 			default:
 				myRandom, _ := rand.Int(rand.Reader, big.NewInt(64800))
@@ -28,23 +31,20 @@ func main() {
 			}
 		}
 	}()
-	go func() {
-		time.Sleep(time.Minute)
-		// time.Sleep(10 * time.Second)
-		quit <- true
-	}()
 
 	go func() {
 		var sum int64
 		var counter int64
-		for {
-			// var data int
-			data := <-inputCh
+		for range inputCh {
+			data, ok := <-inputCh
+			if !ok {
+				fmt.Println("Input channel closed. Closing output channel.")
+				close(outCh)
+				return
+			}
 			fmt.Printf("Getting %d from input channel \n", data)
-			mx.Lock()
 			sum += data
 			counter++
-			mx.Unlock()
 			if counter == 10 {
 				fmt.Printf("Sending %d  to output channel \n", sum/counter)
 				outCh <- sum / counter
@@ -56,10 +56,14 @@ func main() {
 
 	go func() {
 		for {
-			fmt.Printf("Arithmetic mean: %d \n", <-outCh)
+			data, ok := <-outCh
+			if !ok {
+				fmt.Println("Output channel closed. Exiting.")
+				close(quitCh)
+				return
+			}
+			fmt.Printf("Arithmetic mean: %d \n", data)
 		}
 	}()
-	time.Sleep(time.Minute)
-	// time.Sleep(10 * time.Second)
-	// wg.Wait()
+	<-quitCh
 }
