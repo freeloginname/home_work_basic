@@ -13,7 +13,7 @@ func Test(t *testing.T) {
 	testCases := []struct {
 		desc        string
 		counter     int
-		expectation int64
+		expectation int
 	}{
 		{
 			desc:        "Run counter",
@@ -35,7 +35,7 @@ func Test(t *testing.T) {
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			counter := CounterStarter(tC.counter)
-			require.Equal(t, tC.counter, int(counter))
+			require.Equal(t, tC.expectation, counter)
 		})
 	}
 }
