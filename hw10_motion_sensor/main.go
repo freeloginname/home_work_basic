@@ -9,10 +9,11 @@ import (
 )
 
 func main() {
+	sensor_uptime := time.Second * 55
 	inputCh := make(chan int64)
 	outCh := make(chan int64)
 	quitCh := make(chan struct{})
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), sensor_uptime)
 	defer func() {
 		fmt.Println("Exiting program")
 		cancel()
@@ -35,13 +36,9 @@ func main() {
 	go func() {
 		var sum int64
 		var counter int64
-		for range inputCh {
-			data, ok := <-inputCh
-			if !ok {
-				fmt.Println("Input channel closed. Closing output channel.")
-				close(outCh)
-				return
-			}
+		// Если нужно проверять открыт ли канал:
+		// data, ok := <-inputCh
+		for data := range inputCh {
 			fmt.Printf("Getting %d from input channel \n", data)
 			sum += data
 			counter++
@@ -52,18 +49,22 @@ func main() {
 				sum = 0
 			}
 		}
+		fmt.Println("Input channel closed. Closing output channel.")
+		close(outCh)
 	}()
 
 	go func() {
-		for {
-			data, ok := <-outCh
-			if !ok {
-				fmt.Println("Output channel closed. Exiting.")
-				close(quitCh)
-				return
-			}
+		for data := range outCh {
+			// data, ok := <-outCh
+			// if !ok {
+			// 	fmt.Println("Output channel closed. Exiting.")
+			// 	close(quitCh)
+			// 	return
+			// }
 			fmt.Printf("Arithmetic mean: %d \n", data)
 		}
+		fmt.Println("Output channel closed. Exiting.")
+		close(quitCh)
 	}()
 	<-quitCh
 }
