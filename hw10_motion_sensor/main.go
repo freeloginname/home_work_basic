@@ -9,11 +9,11 @@ import (
 )
 
 func main() {
-	sensor_uptime := time.Second * 55
+	sensorUptime := time.Second * 55
 	inputCh := make(chan int64)
 	outCh := make(chan int64)
 	quitCh := make(chan struct{})
-	ctx, cancel := context.WithTimeout(context.Background(), sensor_uptime)
+	ctx, cancel := context.WithTimeout(context.Background(), sensorUptime)
 	defer func() {
 		fmt.Println("Exiting program")
 		cancel()
