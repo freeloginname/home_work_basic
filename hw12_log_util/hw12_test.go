@@ -20,14 +20,14 @@ func Test(t *testing.T) {
 			logFile:     "log.txt",
 			logLevel:    "info",
 			outputFile:  "console",
-			expectftion: "Reading file: log.txt with log level: info. Output: console\nFailed connections: 0\nIPs: map[127.0.0.1:2]\n",
+			expectftion: "Failed connections: 0\nIPs: map[127.0.0.1:2]\n",
 		},
 		{
 			desc:        "Read error",
 			logFile:     "log.txt",
 			logLevel:    "error",
 			outputFile:  "console",
-			expectftion: "Reading file: log.txt with log level: error. Output: console\nFailed connections: 3\nIPs: map[127.0.0.1:1 8.8.8.8:2]\n",
+			expectftion: "Failed connections: 3\nIPs: map[127.0.0.1:1 8.8.8.8:2]\n",
 		},
 	}
 	for _, tC := range testCases {

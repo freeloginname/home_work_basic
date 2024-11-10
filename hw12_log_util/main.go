@@ -24,15 +24,13 @@ func ReadCsv(path string) ([][]string, error) {
 	return lines, nil
 }
 
-func main() {
-	var filePath string
-	var logLevel string
-	var output string
+func ReadParams() (string, string, string, error) {
 	var flagFilePath string
 	var FlagLogLevel string
 	var FlagOutput string
-	var failedConnections int
-	IPMap := make(map[string]int)
+	var filePath string
+	var logLevel string
+	var output string
 
 	pflag.StringVarP(&flagFilePath, "file", "f", "", "path to log file")
 	pflag.StringVarP(&FlagLogLevel, "level", "l", "", "log level")
@@ -40,34 +38,48 @@ func main() {
 	pflag.Parse()
 
 	envFilePath, ok := os.LookupEnv("LOG_ANALYZER_FILE")
-	if ok && flagFilePath == "" {
+	switch {
+	case ok && flagFilePath == "":
 		filePath = envFilePath
-	} else if !ok && flagFilePath == "" {
-		fmt.Println("file path is not set")
-		return
-	} else {
+	case !ok && flagFilePath == "":
+		return "", "", "", errors.New("file path is not set")
+	default:
 		filePath = flagFilePath
 	}
 
 	envLogLevel, ok := os.LookupEnv("LOG_ANALYZER_LEVEL")
-	if ok && FlagLogLevel == "" {
+	switch {
+	case ok && FlagLogLevel == "":
 		logLevel = envLogLevel
-	} else if !ok && FlagLogLevel == "" {
+	case !ok && FlagLogLevel == "":
 		logLevel = "info"
-	} else {
+	default:
 		logLevel = FlagLogLevel
 	}
 
 	envOutput, ok := os.LookupEnv("LOG_ANALYZER_OUTPUT")
-	if ok && FlagOutput == "" {
+	switch {
+	case ok && FlagOutput == "":
 		output = envOutput
-	} else if !ok && FlagOutput == "" {
+	case !ok && FlagOutput == "":
 		output = "console"
-	} else {
+	default:
 		output = FlagOutput
 	}
+	return filePath, logLevel, output, nil
+}
 
-	fmt.Printf("Reading file: %s with log level: %s. Output: %s\n", filePath, logLevel, output)
+func main() {
+	var failedConnections int
+	IPMap := make(map[string]int)
+	filePath, logLevel, output, err := ReadParams()
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+		return
+	}
+
+	// for debug:
+	// fmt.Printf("Reading file: %s with log level: %s. Output: %s\n", filePath, logLevel, output)
 	logs, err := ReadCsv(filePath)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
