@@ -12,17 +12,15 @@ import (
 
 func ReadCsv(path string) ([][]string, error) {
 	file, err := os.Open(path)
-	defer file.Close()
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to open the CSV file")
 	}
-
 	csvReader := csv.NewReader(file)
 	lines, err := csvReader.ReadAll()
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to read the CSV file")
 	}
-
+	defer file.Close()
 	return lines, nil
 }
 
