@@ -70,7 +70,6 @@ func ReadParams() (string, string, string, error) {
 }
 
 func main() {
-	var err error
 	var failedConnections int
 	IPMap := make(map[string]int)
 	filePath, logLevel, output, err := ReadParams()
@@ -101,26 +100,26 @@ func main() {
 		fmt.Printf("Failed connections: %d\n", failedConnections)
 		fmt.Printf("IPs: %v\n", IPMap)
 	} else {
-		outputFile, err := os.Create(output)
-		if err != nil {
-			fmt.Printf("Error: %v", err)
+		outputFile, errr := os.Create(output)
+		if errr != nil {
+			fmt.Printf("Error: %v", errr)
 			return
 		}
 		defer outputFile.Close()
 
 		var outputLine strings.Builder
 		outputLine.WriteString(fmt.Sprintf("Failed connections: %d\n", failedConnections))
-		_, err = outputFile.WriteString(outputLine.String())
-		if err != nil {
-			fmt.Printf("Error: %v", err)
+		_, errr = outputFile.WriteString(outputLine.String())
+		if errr != nil {
+			fmt.Printf("Error: %v", errr)
 			return
 		}
 
 		outputLine.Reset()
 		outputLine.WriteString(fmt.Sprintf("IPs: %v\n", IPMap))
-		_, err = outputFile.WriteString(outputLine.String())
-		if err != nil {
-			fmt.Printf("Error: %v", err)
+		_, errr = outputFile.WriteString(outputLine.String())
+		if errr != nil {
+			fmt.Printf("Error: %v", errr)
 			return
 		}
 	}
