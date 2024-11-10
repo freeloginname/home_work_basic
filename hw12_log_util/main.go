@@ -70,6 +70,7 @@ func ReadParams() (string, string, string, error) {
 }
 
 func main() {
+	var err error
 	var failedConnections int
 	IPMap := make(map[string]int)
 	filePath, logLevel, output, err := ReadParams()
@@ -100,7 +101,6 @@ func main() {
 		fmt.Printf("Failed connections: %d\n", failedConnections)
 		fmt.Printf("IPs: %v\n", IPMap)
 	} else {
-
 		outputFile, err := os.Create(output)
 		if err != nil {
 			fmt.Printf("Error: %v", err)
