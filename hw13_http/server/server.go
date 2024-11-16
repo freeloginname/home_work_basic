@@ -8,6 +8,9 @@ import (
 	"net/http"
 )
 
+const GET = "GET"
+const POST = "POST"
+
 type User struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
@@ -28,7 +31,7 @@ type Product struct {
 }
 
 func getUser(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
+	if r.Method != GET {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -47,7 +50,7 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func createUser(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
+	if r.Method != POST {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -69,7 +72,7 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func getOrder(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
+	if r.Method != GET {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -89,7 +92,7 @@ func getOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func createOrder(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
+	if r.Method != POST {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -111,7 +114,7 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func getProduct(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
+	if r.Method != GET {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -130,7 +133,7 @@ func getProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func createProduct(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
+	if r.Method != POST {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}

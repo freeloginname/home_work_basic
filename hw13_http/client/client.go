@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 type User struct {
@@ -29,14 +30,16 @@ type Product struct {
 }
 
 func main() {
-
 	url := flag.String("url", "http://127.0.0.1:8080", "server url")
 	method := flag.String("method", "GET", "method")
 	path := flag.String("path", "get_user", "path")
 	flag.Parse()
+	var netClient = &http.Client{
+		Timeout: time.Second * 10,
+	}
 	switch *method {
 	case "GET":
-		resp, err := http.Get(
+		resp, err := netClient.Get(
 			*url + "/v1/" + *path,
 		)
 		if err != nil {
@@ -84,7 +87,7 @@ func main() {
 		default:
 			fmt.Println("unknown path")
 		}
-		resp, err := http.Post(
+		resp, err := netClient.Post(
 			*url+"/v1/"+*path,
 			"application/json",
 			strings.NewReader(string(body)),
