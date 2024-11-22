@@ -5,11 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
+	"time"
 )
-
-const GET = "GET"
-const POST = "POST"
 
 type User struct {
 	ID    int    `json:"id"`
@@ -30,8 +29,8 @@ type Product struct {
 	Price float64 `json:"price"`
 }
 
-func getUser(w http.ResponseWriter, r *http.Request) {
-	if r.Method != GET {
+func GetUser(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -49,8 +48,8 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Handled GET request for /v1/get_user")
 }
 
-func createUser(w http.ResponseWriter, r *http.Request) {
-	if r.Method != POST {
+func CreateUser(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -71,8 +70,8 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Handled POST request for /v1/create_user with user: %+v", newUser)
 }
 
-func getOrder(w http.ResponseWriter, r *http.Request) {
-	if r.Method != GET {
+func GetOrder(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -91,8 +90,8 @@ func getOrder(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Handled GET request for /v1/get_order")
 }
 
-func createOrder(w http.ResponseWriter, r *http.Request) {
-	if r.Method != POST {
+func CreateOrder(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -113,8 +112,8 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Handled POST request for /v1/create_order with order: %+v", newOrder)
 }
 
-func getProduct(w http.ResponseWriter, r *http.Request) {
-	if r.Method != GET {
+func GetProduct(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -132,8 +131,8 @@ func getProduct(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Handled GET request for /v1/get_product")
 }
 
-func createProduct(w http.ResponseWriter, r *http.Request) {
-	if r.Method != POST {
+func CreateProduct(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -160,11 +159,20 @@ func main() {
 	flag.Parse()
 
 	fmt.Printf("Starting server on %s:%s\n", *ip, *port)
-	http.HandleFunc("/v1/get_user", getUser)
-	http.HandleFunc("/v1/create_user", createUser)
-	http.HandleFunc("/v1/get_order", getOrder)
-	http.HandleFunc("/v1/create_order", createOrder)
-	http.HandleFunc("/v1/get_product", getProduct)
-	http.HandleFunc("/v1/create_product", createProduct)
-	http.ListenAndServe(*ip+":"+*port, nil)
+	serverMux := http.NewServeMux()
+	serverMux.HandleFunc("/v1/get_user", GetUser)
+	serverMux.HandleFunc("/v1/create_user", CreateUser)
+	serverMux.HandleFunc("/v1/get_order", GetOrder)
+	serverMux.HandleFunc("/v1/create_order", CreateOrder)
+	serverMux.HandleFunc("/v1/get_product", GetProduct)
+	serverMux.HandleFunc("/v1/create_product", CreateProduct)
+
+	server := &http.Server{
+		Addr:         net.JoinHostPort(*ip, *port),
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 5 * time.Second,
+		Handler:      serverMux,
+	}
+
+	server.ListenAndServe()
 }

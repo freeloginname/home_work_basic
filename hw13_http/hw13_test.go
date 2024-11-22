@@ -1,9 +1,17 @@
 package main
 
 import (
+	"net/http"
+	"net/http/httptest"
 	"testing"
 )
 
+func TestGetUser(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/v1/get_user", nil)
+	w := httptest.NewRecorder()
+	GetUser(w, req)
+
+}
 func Test(t *testing.T) {
 	testCases := []struct {
 		desc        string
