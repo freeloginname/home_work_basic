@@ -15,11 +15,12 @@ func main() {
 	method := flag.String("method", "GET", "method")
 	path := flag.String("path", "get_user", "path")
 	flag.Parse()
-	if *mode == "client" {
+	switch *mode {
+	case "client":
 		client.Client(url, method, path)
-	} else if *mode == "server" {
+	case "server":
 		server.Server(ip, port)
-	} else {
+	default:
 		panic("unknown mode")
 	}
 }
