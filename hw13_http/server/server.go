@@ -1,33 +1,15 @@
-package main
+package server
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 	"log"
 	"net"
 	"net/http"
 	"time"
+
+	"github.com/freeloginname/home_work_basic/hw13_http/internal"
 )
-
-type User struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-}
-
-type Order struct {
-	ID          int     `json:"id"`
-	UserID      string  `json:"user_id"`
-	OrderDate   string  `json:"order_date"`
-	TotalAmount float64 `json:"total_amount"`
-}
-
-type Product struct {
-	ID    int     `json:"id"`
-	Name  string  `json:"name"`
-	Price float64 `json:"price"`
-}
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
@@ -37,7 +19,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
-	user := User{
+	user := internal.User{
 		ID:    1,
 		Name:  "John Doe",
 		Email: "xk0e5@example.com",
@@ -54,7 +36,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var newUser User
+	var newUser internal.User
 	err := json.NewDecoder(r.Body).Decode(&newUser)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -78,7 +60,7 @@ func GetOrder(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
-	order := Order{
+	order := internal.Order{
 		ID:          1,
 		UserID:      "1",
 		OrderDate:   "2022-01-01",
@@ -96,7 +78,7 @@ func CreateOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var newOrder Order
+	var newOrder internal.Order
 	err := json.NewDecoder(r.Body).Decode(&newOrder)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -120,7 +102,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
-	product := Product{
+	product := internal.Product{
 		ID:    1,
 		Name:  "Product 1",
 		Price: 10.0,
@@ -137,7 +119,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var newProduct Product
+	var newProduct internal.Product
 	err := json.NewDecoder(r.Body).Decode(&newProduct)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -153,10 +135,11 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Handled POST request for /v1/create_product with product: %+v", newProduct)
 }
 
-func main() {
-	ip := flag.String("ip", "127.0.0.1", "IP address")
-	port := flag.String("port", "8080", "Port number")
-	flag.Parse()
+func Server(ip *string, port *string) {
+	// для получения через флаги
+	// ip := flag.String("ip", "127.0.0.1", "IP address")
+	// port := flag.String("port", "8080", "Port number")
+	// flag.Parse()
 
 	fmt.Printf("Starting server on %s:%s\n", *ip, *port)
 	serverMux := http.NewServeMux()

@@ -1,34 +1,16 @@
-package main
+package client
 
 import (
 	"context"
 	"encoding/json"
-	"flag"
 	"fmt"
 	"io"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/freeloginname/home_work_basic/hw13_http/internal"
 )
-
-type User struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-}
-
-type Order struct {
-	ID          int     `json:"id"`
-	UserID      string  `json:"user_id"`
-	OrderDate   string  `json:"order_date"`
-	TotalAmount float64 `json:"total_amount"`
-}
-
-type Product struct {
-	ID    int     `json:"id"`
-	Name  string  `json:"name"`
-	Price float64 `json:"price"`
-}
 
 func GetData(url string) (string, error) {
 	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Second*10))
@@ -89,11 +71,12 @@ func PostData(url string, body []byte) (string, error) {
 	return string(body), nil
 }
 
-func main() {
-	url := flag.String("url", "http://127.0.0.1:8080", "server url")
-	method := flag.String("method", "GET", "method")
-	path := flag.String("path", "get_user", "path")
-	flag.Parse()
+func Client(url *string, method *string, path *string) {
+	// для получения через флаги
+	// url := flag.String("url", "http://127.0.0.1:8080", "server url")
+	// method := flag.String("method", "GET", "method")
+	// path := flag.String("path", "get_user", "path")
+	// flag.Parse()
 
 	switch *method {
 	case "GET":
@@ -107,14 +90,14 @@ func main() {
 		var body []byte
 		switch *path {
 		case "create_user":
-			user := User{
+			user := internal.User{
 				ID:    1,
 				Name:  "John Doe",
 				Email: "xk0e5@example.com",
 			}
 			body, _ = json.Marshal(user)
 		case "create_order":
-			order := Order{
+			order := internal.Order{
 				ID:          1,
 				UserID:      "1",
 				OrderDate:   "2023-01-01",
@@ -122,7 +105,7 @@ func main() {
 			}
 			body, _ = json.Marshal(order)
 		case "create_product":
-			product := Product{
+			product := internal.Product{
 				ID:    1,
 				Name:  "Product 1",
 				Price: 10.0,
