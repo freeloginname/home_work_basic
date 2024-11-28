@@ -8,9 +8,9 @@ type User struct {
 
 type Order struct {
 	ID          int     `json:"id"`
-	UserID      string  `json:"user_id"`
-	OrderDate   string  `json:"order_date"`
-	TotalAmount float64 `json:"total_amount"`
+	UserID      string  `json:"userId"`
+	OrderDate   string  `json:"orderDate"`
+	TotalAmount float64 `json:"totalAmount"`
 }
 
 type Product struct {

@@ -20,7 +20,7 @@ import (
 const (
 	GetUser = `{"id":1,"name":"John Doe","email":"xk0e5@example.com"}
 `
-	GetOrder = `{"id":1,"user_id":"1","order_date":"2022-01-01","total_amount":100}
+	GetOrder = `{"id":1,"userId":"1","orderDate":"2022-01-01","totalAmount":100}
 `
 	GetProduct = `{"id":1,"name":"Product 1","price":10}
 `
