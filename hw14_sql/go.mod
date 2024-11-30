@@ -1,8 +1,8 @@
 module github.com/freeloginname/home_work_basic/hw14_sql
 
-go 1.21
+go 1.20
 
-toolchain go1.23.3
+// toolchain go1.23.3
 
 require github.com/jackc/pgx/v5 v5.7.1
 
