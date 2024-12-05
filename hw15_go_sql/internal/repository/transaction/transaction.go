@@ -58,7 +58,7 @@ func CreateUser(ctx context.Context, dsn string, name string, email string, pass
 	for _, user := range users {
 		if user.Name == name {
 			errorString := fmt.Sprintf("user with name %v already existst with id: %v", user.Name, user.ID)
-			fmt.Printf(errorString)
+			fmt.Println(errorString)
 			err = errors.New(errorString)
 			return "", err
 		}
@@ -237,7 +237,7 @@ func CreateProduct(ctx context.Context, dsn string, name string, price string) (
 	for _, product := range products {
 		if product.Name == name {
 			errorString := fmt.Sprintf("product with name %v already existst with id: %v", product.Name, product.ID)
-			fmt.Printf(errorString)
+			fmt.Println(errorString)
 			err = errors.New(errorString)
 			return "", err
 		}
