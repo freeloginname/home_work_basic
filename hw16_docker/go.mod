@@ -1,6 +1,6 @@
 module github.com/freeloginname/home_work_basic/hw16_docker
 
-go 1.23
+go 1.20
 
 // toolchain go1.22.5
 
